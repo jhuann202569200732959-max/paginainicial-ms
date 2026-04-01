@@ -1,1 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Higienopolis Veículos | Atacado de Peças Automotivas</title>
+    <!-- Bootstrap 5 CSS + Icons + Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Google Fonts para melhor tipografia -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #0a1c2f;
+            scroll-behavior: smooth;
+        }
+        /* Cores personalizadas base: laranja/ouro automotivo + azul confiança */
+        :root {
+            --primary-orange: #e05a1a;
+            --primary-dark: #b3440c;
+            --secondary-blue: #0b2b40;
+            --accent-gold: #e6b422;
+            --light-gray: #f1f5f9;
+            --dark-text: #0a2540;
+        }
+        .navbar {
+            background-color: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            padding: 0.8rem 0;
+        }
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--primary-orange) !important;
+            letter-spacing: -0.5px;
+        }
+        .navbar-brand span {
+            color: var(--secondary-blue);
+            font-weight: 600;
+        }
+        .nav-link {
+            font-weight: 600;
+            color: #1e2f3e !important;
+            margin: 0 0.5rem;
+            transition: 0.2s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-orange) !important;
+        }
+        .btn-outline-custom {
+            border: 2px solid var(--primary-orange);
+            background: transparent;
+            color: var(--primary-orange);
+            border-radius: 40px;
+            padding: 8px 24px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+        .btn-outline-custom:hover {
+            background: var(--primary-orange);
+            color: white;
+        }
+        .btn-primary-custom {
+            background: var(--primary-orange);
+            border: none;
+            border-radius: 40px;
+            padding: 12px 32px;
+            font-weight: 700;
+            transition: 0.3s;
+            color: white;
+        }
+        .btn-primary-custom:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f3f9fc 100%);
+            padding: 4rem 0 3rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .hero-badge {
+            background: #eef2ff;
+            color: var(--primary-orange);
+            font-weight: 700;
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+        }
+        .feature-icon {
+            background: rgba(224,90,26,0.12);
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            font-size: 2rem;
+            color: var(--primary-orange);
+            margin-bottom: 1.2rem;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 28px;
+            background: white;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.05);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 40px rgba(0,0,0,0.1);
+        }
+        .info-card {
+            background: white;
+            border-radius: 32px;
+            padding: 1.5rem;
+            height: 100%;
+            transition: 0.2s;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .section-title {
+            font-weight: 800;
+            font-size: 2.2rem;
+            color: var(--secondary-blue);
+            position: relative;
+            display: inline-block;
+        }
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--primary-orange);
+            border-radius: 4px;
+        }
+        .contact-info i {
+            font-size: 1.4rem;
+            color: var(--primary-orange);
+            width: 32px;
+        }
+        .footer {
+            background: #0a1a24;
+            color: #cddfe7;
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: 0.2s;
+            z-index: 99;
+            text-decoration: none;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.08);
+            background: #128C7E;
+            color: white;
+        }
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .hero-section {
+                text-align: center;
+            }
+        }
+        .info-label {
+            font-weight: 700;
+            color: var(--secondary-blue);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .info-value {
+            font-weight: 600;
+            color: #1f3b4c;
+        }
+        .bg-soft-orange {
+            background-color: #fff4ed;
+        }
+        .border-orange {
+            border-left: 4px solid var(--primary-orange);
+        }
+    </style>
+</head>
+<body>
 
+<!-- Botão flutuante WhatsApp -->
+<a href="https://wa.me/5543999437474?text=Olá%2C%20gostaria%20de%20saber%20mais%20sobre%20peças%20no%20atacado!" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+    <i class="bi bi-whatsapp"></i>
+</a>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">HIGIENOPOLIS <span>VEÍCULOS</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                <li class="nav-item"><a class="nav-link active" href="#home">Início</a></li>
+                <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
+                <li class="nav-item"><a class="nav-link" href="#pecas">Peças & Atacado</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+                <li class="nav-item ms-lg-3"><a href="#contato" class="btn btn-outline-custom">Solicitar Cotação</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section" id="home">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="hero-badge mb-3"><i class="bi bi-truck me-1"></i> Atacado desde 2001 | Peças originais e concorrentes</div>
+                <h1 class="display-4 fw-bold" style="color: #0b2b40;">Fornecimento de <span style="color: #e05a1a;">peças automotivas</span> com excelência e confiança</h1>
+                <p class="lead mt-3 text-secondary">Mais de 25 anos abastecendo oficinas, revendedores e frotistas no Paraná e todo Brasil. Atendimento B2B, estoque robusto e entregas ágeis.</p>
+                <div class="d-flex flex-wrap gap-3 mt-4">
+                    <a href="#contato" class="btn btn-primary-custom"><i class="bi bi-cart-check"></i> Seja nosso cliente</a>
+                    <a href="#pecas" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-semibold">Conheça o portfólio →</a>
+                </div>
+                <div class="mt-4 pt-2 d-flex flex-wrap gap-4">
+                    <div><i class="bi bi-check-circle-fill text-success me-1"></i> <strong>+3.500</strong> itens em estoque</div>
+                    <div><i class="bi bi-truck text-primary me-1"></i> <strong>Entrega própria</strong> em Londrina/PR</div>
+                    <div><i class="bi bi-shield-check text-warning me-1"></i> <strong>NF-e garantida</strong></div>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="https://placehold.co/600x400/fef3e8/e05a1a?text=Peças+Automotivas+em+Atacado" alt="Peças automotivas em atacado" class="img-fluid rounded-4 shadow-lg" style="max-width: 100%;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Seção de Dados da Empresa (Registro) + Diferenciais -->
+<section class="container py-5" id="sobre">
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <span class="text-uppercase text-muted small fw-semibold"><i class="bi bi-building"></i> Sobre a empresa</span>
+            <h2 class="section-title mt-2 mb-4">Higienopolis Veículos – 25 anos de tradição</h2>
+            <p class="mb-3">A <strong>Higienopolis Veículos (Acaldi & Cia. LTDA)</strong> é uma empresa sólida, registrada desde 2001, especializada no comércio por atacado de peças e acessórios novos para veículos automotores. Atuamos como distribuidores para todo o território nacional, atendendo revendas, oficinas mecânicas, montadoras e e-commerces com agilidade e procedência.</p>
+            <p class="mb-3">Nossa matriz está estrategicamente localizada em Londrina/PR, e contamos com estrutura moderna para expedição e estoque. Fazemos parte do Simples Nacional, garantindo competitividade e transparência fiscal para nossos parceiros.</p>
+            
+            <div class="row mt-4">
+                <div class="col-md-6 mb-3">
+                    <div class="info-card border-orange">
+                        <i class="bi bi-file-text fs-3 text-primary-orange" style="color:#e05a1a;"></i>
+                        <p class="mt-2 mb-0 info-label">CNPJ / IE</p>
+                        <p class="info-value">04.350.347/0001-15 <br> IE PR: 90230303-03</p>
+                        <hr class="my-2">
+                        <p class="info-label mb-0">Data Abertura</p>
+                        <p class="info-value">23/03/2001 • 25 anos e 9 dias de mercado</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="info-card border-orange">
+                        <i class="bi bi-bank2 fs-3" style="color:#e05a1a;"></i>
+                        <p class="mt-2 mb-0 info-label">Natureza & Porte</p>
+                        <p class="info-value">Sociedade Empresária Limitada • Pequeno Porte</p>
+                        <hr class="my-2">
+                        <p class="info-label mb-0">Simples Nacional</p>
+                        <p class="info-value">Optante desde 01/07/2007 • Situação ATIVA</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="bg-soft-orange p-4 rounded-4 shadow-sm h-100">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <i class="bi bi-geo-alt-fill fs-1" style="color:#e05a1a;"></i>
+                    <h4 class="fw-bold m-0">Matriz em Londrina/PR</h4>
+                </div>
+                <p class="mb-1"><strong>Logradouro:</strong> Avenida Dez de Dezembro, 401 - Centro</p>
+                <p><strong>CEP:</strong> 86026-220 | Londrina - Paraná</p>
+                <p><strong>Endereço para correspondência:</strong><br>Higienopolis Veículos Acaldi & Cia. LTDA<br>Av. Dez de Dezembro, 401 Centro – Londrina PR – 86026-220</p>
+                <div class="mt-3 pt-2 border-top">
+                    <span class="badge bg-white text-dark border px-3 py-2 shadow-sm"><i class="bi bi-check-circle-fill text-success me-1"></i> Situação Cadastral: Ativa desde 14/05/2005</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Seção Ícones / Frases / Diferenciais Atacado -->
+<section class="container py-4">
+    <div class="row text-center g-4">
+        <div class="col-md-3 col-sm-6">
+            <div class="feature-icon mx-auto"></div>
+            <i class="bi bi-box-seam fs-1" style="color:#e05a1a;"></i>
+            <h5 class="fw-bold mt-3">Estoque próprio</h5>
+            <p class="text-secondary">Milhares de peças novas, filtros, freios, suspensão e motor.</p>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="feature-icon mx-auto"></div>
+            <i class="bi bi-tags fs-1" style="color:#e05a1a;"></i>
+            <h5 class="fw-bold mt-3">Preço de fábrica</h5>
+            <p class="text-secondary">Comércio atacadista com condições exclusivas para revenda.</p>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="feature-icon mx-auto"></div>
+            <i class="bi bi-truck fs-1" style="color:#e05a1a;"></i>
+            <h5 class="fw-bold mt-3">Logística ágil</h5>
+            <p class="text-secondary">Entregas para todo Brasil, saída rápida via transportadoras.</p>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="feature-icon mx-auto"></div>
+            <i class="bi bi-headset fs-1" style="color:#e05a1a;"></i>
+            <h5 class="fw-bold mt-3">Atendimento especializado</h5>
+            <p class="text-secondary">Equipe técnica para auxiliar na compra e compatibilidade.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Seção Peças e Categorias (Atacado) -->
+<section id="pecas" class="container py-5">
+    <div class="text-center mb-5">
+        <h2 class="section-title">Produtos em Atacado</h2>
+        <p class="text-secondary mt-3 fs-5">Confira as principais linhas de peças e acessórios automotivos com alta rotatividade e margem para revendedores.</p>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+            <div class="card-hover card p-3 h-100 text-center">
+                <i class="bi bi-gear-wide-connected fs-1" style="color:#e05a1a;"></i>
+                <h5 class="fw-bold mt-2">Sistemas de motor</h5>
+                <p class="small">Correias, bombas, juntas, velas, filtros e comandos.</p>
+                <span class="badge bg-light text-dark mt-2">Atacado a partir de 5 peças</span>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card-hover card p-3 h-100 text-center">
+                <i class="bi bi-sliders2 fs-1" style="color:#e05a1a;"></i>
+                <h5 class="fw-bold mt-2">Suspensão & direção</h5>
+                <p class="small">Amortecedores, terminais, bandejas, pivôs e coxins.</p>
+                <span class="badge bg-light text-dark mt-2">Alta durabilidade</span>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card-hover card p-3 h-100 text-center">
+                <i class="bi bi-brake-warning fs-1" style="color:#e05a1a;"></i>
+                <h5 class="fw-bold mt-2">Sistema de freios</h5>
+                <p class="small">Pastilhas, discos, lonas, cilindros e fluídos.</p>
+                <span class="badge bg-light text-dark mt-2">Líder em vendas B2B</span>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card-hover card p-3 h-100 text-center">
+                <i class="bi bi-ev-station fs-1" style="color:#e05a1a;"></i>
+                <h5 class="fw-bold mt-2">Elétrica & iluminação</h5>
+                <p class="small">Alternadores, motores de partida, faróis, lâmpadas LED.</p>
+                <span class="badge bg-light text-dark mt-2">Nacionais e importados</span>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mt-3">
+            <div class="card-hover card p-3 h-100 text-center">
+                <i class="bi bi-car-front-fill fs-1" style="color:#e05a1a;"></i>
+                <h5 class="fw-bold mt-2">Acessórios automotivos</h5>
+                <p class="small">Tapetes, películas, capas de volante, organizadores, som automotivo.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mt-3">
+            <div class="card-hover card p-3 h-100 text-center">
+                <i class="bi bi-droplet fs-1" style="color:#e05a1a;"></i>
+                <h5 class="fw-bold mt-2">Arrefecimento & fluidos</h5>
+                <p class="small">Radiadores, aditivos, óleos, reservatórios e mangueiras.</p>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-4 mt-3">
+            <div class="card-hover card p-3 h-100 text-center bg-light">
+                <i class="bi bi-calculator fs-1" style="color:#e05a1a;"></i>
+                <h5 class="fw-bold mt-2">Condições especiais para atacado</h5>
+                <p class="small">Descontos progressivos, prazo diferenciado e mix completo. Solicite nosso catálogo digital.</p>
+                <a href="#contato" class="btn btn-sm btn-outline-custom mt-2">Pedir Catálogo</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Frase de impacto / depoimento -->
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="bg-white p-5 rounded-4 shadow-sm text-center border">
+                <i class="bi bi-quote fs-1" style="color:#e05a1a;"></i>
+                <p class="fs-4 fst-italic fw-medium mt-3">“Mais de duas décadas fornecendo peças automotivas com responsabilidade, estoque diversificado e parceria duradoura com nossos clientes revendedores.”</p>
+                <hr class="w-25 mx-auto">
+                <p class="fw-bold mb-0">Diretoria Higienopolis Veículos</p>
+                <small class="text-secondary">Acaldi & Cia. LTDA - 25 anos de estrada</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Contato / Localização e Telefones -->
+<section id="contato" class="container py-5">
+    <div class="row g-5">
+        <div class="col-lg-5">
+            <h2 class="section-title mb-4">Entre em contato</h2>
+            <p class="mb-4">Pronto para abastecer seu negócio com peças automotivas de qualidade? Solicite uma cotação por telefone, WhatsApp ou visite nossa unidade em Londrina.</p>
+            <div class="contact-info">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-telephone-fill"></i>
+                    <div class="ms-3"><strong>Telefones Fixos</strong><br>(43) 3212-1050 • (43) 3326-1888</div>
+                </div>
+                <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-whatsapp"></i>
+                    <div class="ms-3"><strong>Whatsapp Comercial</strong><br>(43) 99943-7474</div>
+                </div>
+                <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-envelope-paper-fill"></i>
+                    <div class="ms-3"><strong>E-mail</strong><br>vendas@higienopolisveiculos.com.br</div>
+                </div>
+                <div class="d-flex align-items-start mb-3">
+                    <i class="bi bi-pin-map-fill mt-1"></i>
+                    <div class="ms-3"><strong>Matriz | Higienopolis Veículos</strong><br>Avenida Dez de Dezembro, 401 - Centro, Londrina/PR - CEP 86026-220</div>
+                </div>
+            </div>
+            <div class="mt-4 p-3 bg-light rounded-3">
+                <i class="bi bi-clock-history me-2"></i> Horário de atendimento: Segunda a Sexta, 8h às 18h | Sábado 8h às 12h
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <div class="card shadow border-0 rounded-4 overflow-hidden">
+                <div class="card-body p-0">
+                    <iframe class="w-100" height="320" style="border:0" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Avenida+Dez+de+Dezembro+401+Londrina+PR&zoom=15"></iframe>
+                    <div class="p-4">
+                        <h5 class="fw-bold">Fale com nossa equipe de vendas</h5>
+                        <form id="formContato" action="#" method="post">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="Seu nome / Empresa" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="tel" class="form-control" placeholder="Telefone / WhatsApp">
+                                </div>
+                                <div class="col-12">
+                                    <textarea class="form-control" rows="2" placeholder="Descreva as peças que procura ou CNPJ para cadastro"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary-custom w-100">Solicitar contato comercial →</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer completo -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 mb-4">
+                <h4 class="fw-bold text-white">Higienopolis Veículos</h4>
+                <p class="small opacity-75">Acaldi & Cia. LTDA | CNPJ: 04.350.347/0001-15<br>Inscrição Estadual PR: 90230303-03<br>Empresa optante pelo Simples Nacional - Situação cadastral ATIVA.</p>
+                <p class="small"><i class="bi bi-c-circle"></i> 2001 - 2026 • Mais de 25 anos de credibilidade</p>
+            </div>
+            <div class="col-md-4 mb-4">
+                <h5 class="fw-semibold">Atendimento</h5>
+                <ul class="list-unstyled">
+                    <li><i class="bi bi-telephone"></i> (43) 3212-1050 / (43) 3326-1888</li>
+                    <li><i class="bi bi-whatsapp"></i> (43) 99943-7474</li>
+                    <li><i class="bi bi-envelope"></i> vendas@higienopolisveiculos.com.br</li>
+                    <li class="mt-2"><i class="bi bi-geo-alt"></i> Av. Dez de Dezembro, 401 - Centro, Londrina-PR</li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h5 class="fw-semibold">Institucional</h5>
+                <ul class="list-unstyled small">
+                    <li><a href="#" class="text-white-50 text-decoration-none">Política de qualidade</a></li>
+                    <li><a href="#" class="text-white-50 text-decoration-none">Condições de atacado</a></li>
+                    <li><a href="#" class="text-white-50 text-decoration-none">Trabalhe conosco</a></li>
+                </ul>
+                <div class="mt-3">
+                    <span class="badge bg-warning text-dark">Revendedor autorizado</span>
+                </div>
+            </div>
+        </div>
+        <hr class="opacity-25">
+        <div class="text-center small opacity-75">
+            Higienopolis Veículos – Comércio por atacado de peças e acessórios novos para veículos automotores. Matriz Londrina/PR. © 2026 Todos os direitos reservados.
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Simples interação no form (prevent default apenas para demo)
+    document.getElementById("formContato")?.addEventListener("submit", function(e){
+        e.preventDefault();
+        alert("Obrigado! Nossa equipe de atacado entrará em contato em breve. Você também pode ligar para (43) 3326-1888.");
+        this.reset();
+    });
+</script>
+</body>
+</html>
